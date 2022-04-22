@@ -12,8 +12,8 @@ const navConfig = [
     icon: getIcon('eva:pie-chart-2-fill'),
   },
   {
-    title: 'Oracle Prices',
-    path: '/dashboard/user',
+    title: 'Pairs',
+    path: '/dashboard/pairs',
     icon: getIcon('eva:people-fill'),
   },
 ];

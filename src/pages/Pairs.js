@@ -25,7 +25,7 @@ import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import Iconify from '../components/Iconify';
 import SearchNotFound from '../components/SearchNotFound';
-import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashboard/user';
+import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashboard/pairs';
 // mock
 import USERLIST from '../_mock/user';
 

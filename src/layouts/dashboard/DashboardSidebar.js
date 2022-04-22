@@ -1,24 +1,9 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import {  useLocation } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
-import { Box, Link, Drawer, Typography, Avatar } from '@mui/material';
-// import {
-//   getConversionRate,
-//   getLoansInfo,
-//   getOraclePrices,
-//   getPoolInfo,
-//   getTokenPairInfo,
-//   LoanInfo,
-//   Oracle,
-//   prepareLiquidateTransactions,
-//   ReserveAddress,
-//   TestnetOracle,
-//   TestnetReserveAddress,
-//   TestnetTokenPairs,
-//   TokenPair
-// } from "../../../folks-finance-js-sdk/src/v1/lend/constants/mainnetConstants";
+import { Box, Drawer} from '@mui/material';
 
 // hooks
 import useResponsive from '../../hooks/useResponsive';
@@ -38,14 +23,6 @@ const RootStyle = styled('div')(({ theme }) => ({
     flexShrink: 0,
     width: DRAWER_WIDTH,
   },
-}));
-
-const AccountStyle = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(2, 2.5),
-  borderRadius: Number(theme.shape.borderRadius) * 1.5,
-  backgroundColor: theme.palette.grey[500_12],
 }));
 
 // ----------------------------------------------------------------------
