@@ -8,6 +8,7 @@ Live Demo: https://folks-analytic-dashboard.vercel.app/
 - Material UI
 
 #  SDK functionality Used:
+```
 pages/api/pools
 
 pages/api/pairs
@@ -23,10 +24,16 @@ pages/api/reward-aggregator
 pages/api/lock-and-earn
 
 pages/api/lock-earn
-
-Local development
+```
+# Local development
 Clone, run yarn install or npm install and then start the development server:
 
 npm run start
 
 Open http://localhost:3000 with your browser to see the result.
+
+# LICENSE
+Distributed under the MIT License. See for more information [LICENSE](https://github.com/gconnect/folks-analytic-dashboard/blob/master/LICENSE)
+
+# Disclaimer
+This project is not audited and should not be used in a production environment.
