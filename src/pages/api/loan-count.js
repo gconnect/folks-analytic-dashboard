@@ -6,7 +6,7 @@ import {
   getTokenPairInfo,
   TestnetOracle,
   TestnetTokenPairs,
-} from "../../folks-finance-js-sdk/src";
+} from "../../folks-finance-js-sdk/";
 import { indexerClient } from "../../config";
 
 export default async function loanCount() {

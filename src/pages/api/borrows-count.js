@@ -6,9 +6,8 @@ import {
   getTokenPairInfo,
   TestnetOracle,
   TestnetTokenPairs,
-} from "../../folks-finance-js-sdk/dist";
+} from "../../folks-finance-js-sdk/";
 import { indexerClient } from "../../config";
-import { loanInfo } from "../../folks-finance-js-sdk/dist/v1/lend/utils";
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
