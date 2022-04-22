@@ -1,7 +1,7 @@
 import  {
   getPoolInfo,
   TestnetPools,
-} from '../../folks-finance-js-sdk';
+} from '../../folks-finance-js-sdk/src';
 import { indexerClient} from "../../config";
 
 export default async function getPool() {
