@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
@@ -17,37 +18,84 @@ import {
   AppCurrentSubject,
   AppConversionRates,
 } from '../sections/@dashboard/app';
-
+import getPool from './api/pools';
+import totalValueLocked from './api/tvl';
+import rewardValue from './api/reward-aggregator';
+import { symbol } from 'prop-types';
 // ----------------------------------------------------------------------
 
 export default function DashboardApp() {
-  const theme = useTheme();
 
+  const theme = useTheme();
+  const [tvl, setTvl] = useState(0);
+  const [reward, setReward] = useState(0);
+  const [borrowed, setBorrowed] = useState(0);
+  const [deposited, setDeposited] = useState(0);
+  const [loading, setLoading] = useState(false)
+  const [poolName, setPoolName] = useState([])
+  const [poolTVL, setPoolTVL] = useState([])
+  const [pools, setPools] = useState([])
+  let myPools = []
+  const main = async() => {
+    // const myPools = await getPool()    
+    setLoading(true)
+    const totalValue = await totalValueLocked()
+    const aggregator = await rewardValue()
+     myPools = await rewardValue()
+    console.log(aggregator)
+    setTvl(totalValue.tvl);
+    setBorrowed(totalValue.tvb)
+    setDeposited(totalValue.tvd)
+    setReward(aggregator.totalRewardsValue)
+    const poolList = totalValue.pools
+    setPools(poolList)
+    poolList.map((pool) => {
+      // console.log(pool)
+      // setPools(pool)
+      setPoolName(pool.symbol)
+      setPoolTVL(pool.totalLockedValue)
+    })
+    setLoading(false)
+    console.log(totalValue)
+  }
+  useEffect(() => {
+    main()
+  }, [])
+
+  function loadingScreen() {
+    return (
+      <div>
+        <Image
+          src='https://source.unsplash.com/random/800x600'
+          fallback={<Breathing width={800} height={600} />}
+        />
+      </div>
+    )
+  }
   return (
     <Page title="Dashboard">
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-         Folks Finance Analytic Dashboard
+          Analytic Dashboard
         </Typography>
-
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
+            <AppWidgetSummary title="Total Value Locked" total={tvl} icon={'ant-design:android-filled'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="New Users" total={1352831} color="info" icon={'ant-design:apple-filled'} />
+            <AppWidgetSummary title="Reward Aggregator" total={reward} color="info" icon={'ant-design:apple-filled'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Item Orders" total={1723315} color="warning" icon={'ant-design:windows-filled'} />
+            <AppWidgetSummary title="Deposited" total={deposited} color="warning" icon={'ant-design:windows-filled'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
+            <AppWidgetSummary title="Borrowed" total={borrowed} color="error" icon={'ant-design:bug-filled'} />
           </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
+        
+          {/* <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
               title="Website Visits"
               subheader="(+43%) than last year"
@@ -85,26 +133,28 @@ export default function DashboardApp() {
                 },
               ]}
             />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AppCurrentVisits
-              title="Current Visits"
-              chartData={[
-                { label: 'America', value: 4344 },
-                { label: 'Asia', value: 5435 },
-                { label: 'Europe', value: 1443 },
-                { label: 'Africa', value: 4443 },
-              ]}
-              chartColors={[
-                theme.palette.primary.main,
-                theme.palette.chart.blue[0],
-                theme.palette.chart.violet[0],
-                theme.palette.chart.yellow[0],
-              ]}
-            />
-          </Grid>
-
+          </Grid> */}
+           
+                 <Grid item xs={12} md={6} lg={4}>
+                 <AppCurrentVisits
+                   title="Current Visits"
+                   chartData= 
+                   {
+                     [
+                     { label:' pool.symbol', value: 435 },
+                     { label: 'Asia', value: 5435 },
+                     { label: 'Europe', value: 1443 },
+                     { label: 'Africa', value: 4443 },
+                   ]}
+                   chartColors={[
+                     theme.palette.primary.main,
+                     theme.palette.chart.blue[0],
+                     theme.palette.chart.violet[0],
+                     theme.palette.chart.yellow[0],
+                   ]}
+                 />
+               </Grid>
+           
           <Grid item xs={12} md={6} lg={8}>
             <AppConversionRates
               title="Conversion Rates"
@@ -124,7 +174,7 @@ export default function DashboardApp() {
             />
           </Grid>
 
-          <Grid item xs={12} md={6} lg={4}>
+          {/* <Grid item xs={12} md={6} lg={4}>
             <AppCurrentSubject
               title="Current Subject"
               chartLabels={['English', 'History', 'Physics', 'Geography', 'Chinese', 'Math']}
@@ -135,22 +185,21 @@ export default function DashboardApp() {
               ]}
               chartColors={[...Array(6)].map(() => theme.palette.text.secondary)}
             />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={6} lg={8}>
+          {/* <Grid item xs={12} md={6} lg={8}>
             <AppNewsUpdate
-              title="News Update"
-              list={[...Array(5)].map((_, index) => ({
+              title="Pools"
+              list={pools.map((pool, index) => ({
                 id: faker.datatype.uuid(),
-                title: faker.name.jobTitle(),
-                description: faker.name.jobTitle(),
+                description: symbol,
                 image: `/static/mock-images/covers/cover_${index + 1}.jpg`,
                 postedAt: faker.date.recent(),
               }))}
             />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={6} lg={4}>
+          {/* <Grid item xs={12} md={6} lg={4}>
             <AppOrderTimeline
               title="Order Timeline"
               list={[...Array(5)].map((_, index) => ({
@@ -166,12 +215,13 @@ export default function DashboardApp() {
                 time: faker.date.past(),
               }))}
             />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={6} lg={4}>
+          <Grid item xs={12} md={6} lg={8}>
             <AppTrafficBySite
-              title="Traffic by Site"
-              list={[
+              title="Pools"
+              list={
+                [
                 {
                   name: 'FaceBook',
                   value: 323234,
@@ -196,18 +246,6 @@ export default function DashboardApp() {
             />
           </Grid>
 
-          <Grid item xs={12} md={6} lg={8}>
-            <AppTasks
-              title="Tasks"
-              list={[
-                { id: '1', label: 'Create FireStone Logo' },
-                { id: '2', label: 'Add SCSS and JS files if required' },
-                { id: '3', label: 'Stakeholder Meeting' },
-                { id: '4', label: 'Scoping & Estimations' },
-                { id: '5', label: 'Sprint Showcase' },
-              ]}
-            />
-          </Grid>
         </Grid>
       </Container>
     </Page>

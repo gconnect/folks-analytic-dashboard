@@ -8,12 +8,16 @@
     "airbnb",
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended",
-    "prettier"
+    "prettier",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
   ],
   "plugins": [
     "react",
     "react-hooks",
-    "prettier"
+    "prettier",
+    "typescript" 
   ],
   "parser": "@babel/eslint-parser",
   "parserOptions": {
@@ -22,6 +26,15 @@
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
       "impliedStrict": true
+    }
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"," src/**/*"
+          , "public/folks-finance-js-sdk"
+        ]
+      }
     }
   },
   "rules": {
