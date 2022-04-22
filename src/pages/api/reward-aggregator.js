@@ -3,7 +3,7 @@ import {
   TestnetOracle,
   TestnetPools,
   getRewardsAggregatorInfo,
-} from "../../folks-finance-js-sdk/dist";
+} from "../../folks-finance-js-sdk";
 import { indexerClient} from "../../config";
 
 export default async function rewardValue() {
