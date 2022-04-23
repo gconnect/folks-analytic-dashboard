@@ -1,7 +1,6 @@
 # Folks Finance Analytic Dashboard
 Analytic dashboard built using Folks Finance JS SDK
-Live Demo: https://folks-analytic-dashboard.vercel.app/
-
+<img width="1440" alt="Screenshot 2022-04-23 at 03 07 27" src="https://user-images.githubusercontent.com/23031920/164864407-a165dc2d-d905-49ba-8293-a7fda4468b90.png">
 # Technologies Used
 - Folks Finance Js SDK:
 - React.js
